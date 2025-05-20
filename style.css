@@ -1,0 +1,83 @@
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+@font-face {
+  font-family: CentraNo2;
+  src: url('fonts/CentraNo2/CentraNo2-Medium.ttf') format('truetype');
+  font-weight: 300 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: CentraNo2;
+  src: url('fonts/CentraNo2/CentraNo2-Bold.ttf') format('truetype');
+  font-weight: 300 800;
+  font-style: bold;
+}
+  body {
+    font-family: CentraNo2;
+    sans-serif;
+    background-color: #f9fafb;
+  }
+  
+  .bar {
+    transition: width 0.5s ease;
+    border-radius: 4px;
+  }
+  
+  .category-filter-btn.active {
+    background-color: #4f46e5;
+    color: white;
+  }
+  
+  .category-filter-btn:hover:not(.active) {
+    background-color: #e5e7eb;
+  }
+  
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .category-filters {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 10px;
+    }
+  }
+</style>

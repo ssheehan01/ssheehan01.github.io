@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Revenue by Content</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Header with Back Navigation -->
+    <header class="mb-8">
+      <div class="flex items-center mb-2">
+        <a href="index.html" class="text-blue-600 hover:text-blue-800 flex items-center mr-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+          </svg>
+          Back to Dashboard
+        </a>
+        <h1 class="text-2xl font-bold text-gray-800">Revenue by Page</h1>
+      </div>
+      <div class="flex justify-between items-center">
+        <p class="text-gray-600">Detailed analysis of revenue by page for May 18, 2025</p>
+        <div class="flex items-center text-sm bg-gray-100 rounded-md px-3 py-1">
+          <span class="text-gray-600">Total Revenue:</span>
+          <span class="font-semibold ml-2">$12,000</span>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Filter Controls -->
+    <div class="bg-white rounded-lg shadow p-6 mb-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3 md:mb-0">Filter Content</h2>
+        <div class="flex items-center">
+          <span class="text-gray-600 mr-2">Sort by:</span>
+          <select id="sort-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2">
+            <option value="clicks-desc" selected>Most Revenue</option>
+            <option value="clicks-asc">Least Revenue</option>
+            <option value="ctr-desc">Highest RPM</option>
+            <option value="revenue-desc">Highest CTR</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Category Filters -->
+      <div class="category-filters flex flex-wrap gap-2 mb-2">
+        <button class="category-filter-btn active px-3 py-1 text-sm rounded-md">All Categories</button>
+        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Electronics</button>
+        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Tech</button>
+        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Home</button>
+        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Fashion</button>
+        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Beauty</button>
+      </div>
+      
+      <!-- Search Input -->
+      <div class="mt-4">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input type="search" id="product-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search for article...">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Content Revenue Data -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+      <!-- Table Header -->
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h2 class="text-lg font-semibold text-gray-800">Commerce Content Performance</h2>
+      </div>
+      
+      <!-- Stats Summary -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6 border-b border-gray-200">
+        <div class="bg-blue-50 rounded-lg p-4">
+          <p class="text-sm text-blue-800">Top Performing Story</p>
+          <p class="font-semibold">Best Gaming Laptops 2025</p>
+          <p class="text-xs text-gray-600 mt-1">245 clicks • $980 revenue</p>
+        </div>
+        
+        <div class="bg-green-50 rounded-lg p-4">
+          <p class="text-sm text-green-800">Highest RPM</p>
+          <p class="font-semibold">Summer Dress Guide</p>
+          <p class="text-xs text-gray-600 mt-1">18.3% RPM • $840 revenue</p>
+        </div>
+        
+        <div class="bg-purple-50 rounded-lg p-4">
+          <p class="text-sm text-purple-800">Trending Story</p>
+          <p class="font-semibold">Smart Home Essentials</p>
+          <p class="text-xs text-gray-600 mt-1">+42% vs yesterday • $720 revenue</p>
+        </div>
+      </div>
+      
+      <!-- Data Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Page</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Clicks</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CTR</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RPM</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <!-- Product 1 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                    <div class="text-sm text-blue-600 tooltip">
+                        <a href="#" class="hover:underline">Best Noise Cancelling Headphones 2025</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Electronics</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">164</div>
+                <div class="text-xs text-green-600">+12% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">12.4%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$820</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 2 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Best Gaming Laptops 2025</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Tech</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">142</div>
+                <div class="text-xs text-green-600">+8% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">9.6%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$710</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 3 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Best E-Readers for Summer Reading</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Tech</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">103</div>
+                <div class="text-xs text-gray-500">-2% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-bold">18.3%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$390</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 4 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Must-Have Beauty Tools for 2025</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-pink-100 text-pink-800">Beauty</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">89</div>
+                <div class="text-xs text-green-600 font-semibold">+42% vs. yesterday</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">11.2%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$445</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 5 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Kitchen Gadgets That Save Time</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Home</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">78</div>
+                <div class="text-xs text-red-600">-5% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">8.5%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$235</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 6 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Best TVs for Design Enthusiasts</a>
+                          <span class="tooltip-text">URL here</span>
+                        </div>
+                        <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Electronics</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">72</div>
+                <div class="text-xs text-gray-500">+1% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">7.8%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$360</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 7 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Kitchen Gadgets That Save Time</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Home</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">78</div>
+                <div class="text-xs text-red-600">-5% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">8.5%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$235</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 8 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Kitchen Gadgets That Save Time</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Home</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">78</div>
+                <div class="text-xs text-red-600">-5% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">8.5%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$235</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 9 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Kitchen Gadgets That Save Time</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Home</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">78</div>
+                <div class="text-xs text-red-600">-5% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">8.5%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$235</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+            
+            <!-- Product 10 -->
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="ml-4">
+                      <div class="text-sm text-blue-600 tooltip">
+                          <a href="#" class="hover:underline">Kitchen Gadgets That Save Time</a>
+                      <span class="tooltip-text">URL here</span>
+                    </div>
+                    <div class="text-xs text-gray-500">Author Byline</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Home</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900 font-medium">78</div>
+                <div class="text-xs text-red-600">-5% vs. avg</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">8.5%</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">$235</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">RPM %</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Pagination -->
+      <div class="px-6 py-3 border-t border-gray-200 flex items-center justify-between">
+        <div class="flex-1 flex justify-between sm:hidden">
+          <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            Previous
+          </a>
+          <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            Next
+          </a>
+        </div>
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700">
+              Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">56</span> products
+            </p>
+          </div>
+          <div>
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+              <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                <span class="sr-only">Previous</span>
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a href="#" aria-current="page" class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                1
+              </a>
+              <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                2
+              </a>
+              <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                3
+              </a>
+              <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                ...
+              </span>
+              <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                6
+              </a>
+              <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                <span class="sr-only">Next</span>
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Product Performance Insights -->
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Top Categories Chart -->
+      <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Clicks by Category</h3>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>Electronics</span>
+              <span>712</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="bar bg-blue-500 h-2.5 rounded-full" style="width: 100%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>Tech</span>
+              <span>586</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="bar bg-blue-500 h-2.5 rounded-full" style="width: 82%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>Home</span>
+              <span>425</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="bar bg-blue-500 h-2.5 rounded-full" style="width: 60%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>Fashion</span>
+              <span>378</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="bar bg-blue-500 h-2.5 rounded-full" style="width: 53%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>Beauty</span>
+              <span>312</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="bar bg-blue-500 h-2.5 rounded-full" style="width: 44%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>Others</span>
+              <span>802</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="bar bg-gray-500 h-2.5 rounded-full" style="width: 32%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Top Performing Articles -->
+      <div class="bg-white rounded-lg shadow p-6 lg:col-span-2">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-800">Top Articles by Affiliate Performance</h3>
+          <div>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2">
+              <option selected>Last 24 hours</option>
+              <option>Last 7 days</option>
+              <option>Last 30 days</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Article</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Products</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Clicks</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                  <a href="#" class="hover:underline">Best Noise Cancelling Headphones 2025</a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">7</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">245</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$980</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                  <a href="#" class="hover:underline">Best Gaming Laptops 2025</a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">210</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$840</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                  <a href="#" class="hover:underline">Smart Home Essentials</a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">9</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">185</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$720</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                  <a href="#" class="hover:underline">Budget Headphones Review</a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">6</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">150</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$600</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                  <a href="#" class="hover:underline">Summer Dress Guide</a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">146</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$585</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Data Export & Action Buttons -->
+    <div class="mt-8 flex flex-col sm:flex-row sm:justify-between gap-4">
+      <div class="flex gap-3">
+        <button class="bg-white border border-gray-300 rounded-md shadow-sm px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export CSV
+        </button>
+        <button class="bg-white border border-gray-300 rounded-md shadow-sm px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export PDF
+        </button>
+      </div>
+      
+      <div class="flex gap-3">
+        <button class="bg-indigo-600 border border-transparent rounded-md shadow-sm px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="8" y1="12" x2="16" y2="12"></line>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
+          </svg>
+          Create Insights Report
+        </button>
+        <button class="bg-white border border-gray-300 rounded-md shadow-sm px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+          Share With Team
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add interactivity with simple JavaScript -->
+  <script>
+    // Add click handlers for category filter buttons
+    const categoryButtons = document.querySelectorAll('.category-filter-btn');
+    
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // In a real implementation, this would filter the data table
+        // based on the selected category
+        console.log('Category selected:', this.textContent.trim());
+      });
+    });
+    
+    // Simple search functionality placeholder
+    const searchInput = document.getElementById('product-search');
+    
+    searchInput.addEventListener('input', function() {
+      // In a real implementation, this would filter the table
+      // based on the search input
+      console.log('Searching for:', this.value);
+    });
+    
+    // Sort select handler
+    const sortSelect = document.getElementById('sort-select');
+    
+    sortSelect.addEventListener('change', function() {
+      // In a real implementation, this would sort the table
+      // based on the selected sort option
+      console.log('Sorting by:', this.value);
+    });
+    
+    // Add simple tooltips to explain metrics
+    const infoIcons = document.querySelectorAll('.info-icon');
+    
+    infoIcons.forEach(icon => {
+      const tooltipText = icon.getAttribute('title');
+      icon.addEventListener('mouseenter', function() {
+        const tooltip = document.createElement('div');
+        tooltip.classList.add('bg-gray-800', 'text-white', 'text-xs', 'p-2', 'rounded', 'absolute', 'z-10');
+        tooltip.style.top = (this.offsetTop - 40) + 'px';
+        tooltip.style.left = this.offsetLeft + 'px';
+        tooltip.textContent = tooltipText;
+        tooltip.id = 'active-tooltip';
+        document.body.appendChild(tooltip);
+      });
+      
+      icon.addEventListener('mouseleave', function() {
+        const activeTooltip = document.getElementById('active-tooltip');
+        if (activeTooltip) {
+          activeTooltip.remove();
+        }
+      });
+    });
+    
+    // Add demo date functionality
+    const dateOptions = document.querySelectorAll('select option');
+    dateOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        // In a real implementation, this would update the data
+        // based on the selected date range
+        console.log('Date range selected:', this.textContent);
+      });
+    });
+  </script>
+</body>
+</html>
