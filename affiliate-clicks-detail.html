@@ -32,42 +32,168 @@
     </header>
     
     <!-- Filter Controls -->
-    <div class="bg-white rounded-lg shadow p-6 mb-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-        <h2 class="text-lg font-semibold text-gray-800 mb-3 md:mb-0">Filter Products</h2>
-        <div class="flex items-center">
-          <span class="text-gray-600 mr-2">Sort by:</span>
-          <select id="sort-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2">
-            <option value="clicks-desc" selected>Most Clicks</option>
-            <option value="revenue-desc">Most Revenue</option>
-            <option value="ctr-desc">Highest CTR</option>
-          </select>
-        </div>
-      </div>
-      <!-- Search Input -->
-      <div class="mt-4">
-        <div class="relative">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-800 mb-3 md:mb-0">Filter Content</h2>
+            <div class="flex items-center">
+              <span class="text-gray-600 mr-2">Sort by:</span>
+              <select id="sort-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2">
+                <option value="clicks-desc" selected>Most Revenue</option>
+                <option value="clicks-asc">Least Revenue</option>
+                <option value="ctr-desc">Highest RPM</option>
+                <option value="revenue-desc">Highest CTR</option>
+              </select>
+            </div>
           </div>
-          <input type="search" id="product-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search for product, merchant, or article...">
+          
+          <!-- Text Field Filters -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <div>
+              <label for="author-filter" class="block text-sm font-medium text-gray-700 mb-1">Product</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <input type="text" id="author-filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Filter by product name...">
+              </div>
+            </div>
+            
+            <div>
+              <label for="merchant-filter" class="block text-sm font-medium text-gray-700 mb-1">Merchant</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                    <path d="M3 3h18l-1 13H4L3 3z"></path>
+                    <path d="M16 11V9a4 4 0 0 0-8 0v2"></path>
+                  </svg>
+                </div>
+                <input type="text" id="merchant-filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Filter by merchant...">
+              </div>
+            </div>
+            
+            <div>
+              <label for="url-filter" class="block text-sm font-medium text-gray-700 mb-1">URL</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                  </svg>
+                </div>
+                <input type="text" id="url-filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Filter by Product URL...">
+              </div>
+            </div>
+            
+            <div>
+              <label for="uuid-filter" class="block text-sm font-medium text-gray-700 mb-1">GTIN</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                  </svg>
+                </div>
+                <input type="text" id="uuid-filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Filter by GTIN...">
+              </div>
+            </div>
+          </div>
+          
+       
+          <!-- Date Range and Sort Controls -->
+                
+                <!-- Date Range Picker Section -->
+                <div class="relative inset-y-4 border-b border-gray-200 pb-6 mb-6">
+                  <div class="flex flex-col lg:flex-row gap-6">
+                    <!-- Date Range Selection -->
+                    <div class="flex-1">
+                      <label class="block text-sm font-medium text-gray-700 mb-5">Date Range</label>
+                      <div class="flex flex-col sm:flex-row gap-3">
+                        <!-- Quick Presets -->
+                        <div class="flex flex-wrap gap-2">
+                          <button class="date-preset-btn active px-3 py-2 text-sm border border-blue-500 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100" data-preset="yesterday">
+                            Yesterday
+                          </button>
+                          <button class="date-preset-btn px-3 py-2 text-sm border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50" data-preset="last7days">
+                            Last 7 Days
+                          </button>
+                          <button class="date-preset-btn px-3 py-2 text-sm border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50" data-preset="last30days">
+                            Last 30 Days
+                          </button>
+                          <button class="date-preset-btn px-3 py-2 text-sm border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50" data-preset="custom">
+                            Custom Range
+                          </button>
+                        </div>
+                        
+                        <!-- Custom Date Inputs (Hidden by default) -->
+                        <div id="custom-date-range" class="hidden flex gap-2 items-center">
+                          <input type="date" id="start-date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2" value="2025-05-17">
+                          <span class="text-gray-500">to</span>
+                          <input type="date" id="end-date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2" value="2025-05-18">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Period Comparison -->
+                    <div class="lg:w-80">
+                      <label class="block text-sm font-medium text-gray-700 mb-3">Compare Period</label>
+                      <div class="flex flex-col gap-3">
+                        <!-- Comparison Toggle -->
+                        <div class="flex items-center">
+                          <input id="compare-toggle" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                          <label for="compare-toggle" class="ml-2 text-sm text-gray-700">Enable period comparison</label>
+                        </div>
+                        
+                        <!-- Comparison Options (Hidden by default) -->
+                        <div id="comparison-options" class="hidden">
+                          <select id="comparison-type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 w-full">
+                            <option value="previous-period">Previous Period</option>
+                            <option value="same-period-last-year">Same Period Last Year</option>
+                            <option value="custom-comparison">Custom Comparison</option>
+                          </select>
+                          
+                          <!-- Custom Comparison Dates (Hidden by default) -->
+                          <div id="custom-comparison-dates" class="hidden mt-2 flex gap-2 items-center">
+                            <input type="date" id="compare-start-date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 flex-1" value="2025-05-10">
+                            <span class="text-gray-500 text-xs">to</span>
+                            <input type="date" id="compare-end-date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 flex-1" value="2025-05-16">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Applied Filters Display -->
+                  <div class="mt-4 flex items-center gap-2 text-sm">
+                    <span class="text-gray-600">Applied:</span>
+                    <span id="current-date-range" class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md">Yesterday (May 17, 2025)</span>
+                    <span id="current-comparison" class="hidden px-2 py-1 bg-purple-100 text-purple-800 rounded-md">vs Previous Day (May 16, 2025)</span>
+                    <button id="clear-filters" class="text-gray-500 hover:text-gray-700 ml-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+          <!-- Clear Filters Button -->
+          <div class="relative inset-y-3 left-0 flex items-center pl-3">
+            <button id="clear-filters" class="text-sm text-gray-500 hover:text-gray-700 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+              Clear All Filters
+            </button>
         </div>
-      </div>
-      <!-- Category Filters -->
-      <div class="category-filters flex flex-wrap gap-2 mb-2">
-        <button class="category-filter-btn active px-3 py-1 text-sm rounded-md">All Categories</button>
-        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Electronics</button>
-        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Tech</button>
-        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Home</button>
-        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Fashion</button>
-        <button class="category-filter-btn px-3 py-1 text-sm rounded-md">Beauty</button>
-      </div>
-      
-      
-    </div>
+        
+         
+          
+            
+        </div>
     
     <!-- Product Click Data -->
     <div class="bg-white rounded-lg shadow overflow-hidden">
